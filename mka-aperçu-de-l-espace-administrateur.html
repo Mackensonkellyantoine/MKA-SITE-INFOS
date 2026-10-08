@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>MKA Admin — Espace privé</title>
+<style>
+:root{--bg:#0a1220;--card:#101f33;--line:#223852;--text:#f5f8fc;--muted:#aab8c8;--accent:#4da3ff;--danger:#ff6b6b;--ok:#3ddc84}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text)}
+a{color:var(--accent)}.wrap{max-width:900px;margin:auto;padding:20px}
+h1{font-size:1.6rem}h2{font-size:1.25rem;border-bottom:1px solid var(--line);padding-bottom:8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin:16px 0}
+label{display:block;font-size:.85rem;color:var(--muted);margin:12px 0 5px}
+input[type=text],input[type=url],input[type=password],textarea{width:100%;background:#0a1626;border:1px solid var(--line);border-radius:10px;padding:11px 13px;color:var(--text);font-size:.95rem}
+textarea{min-height:90px;resize:vertical;font-family:inherit}
+button{background:var(--accent);color:#03101d;border:0;border-radius:10px;padding:11px 18px;font-weight:700;cursor:pointer;margin:6px 6px 0 0}
+button.ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
+button.danger{background:transparent;border:1px solid var(--danger);color:var(--danger)}
+.row{display:flex;gap:10px}.row>*{flex:1}
+.item{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0}
+.item .meta{text-align:left}
+.msg{padding:10px 14px;border-radius:10px;margin:10px 0;display:none}
+.msg.ok{display:block;background:#0c2a1c;border:1px solid var(--ok);color:var(--ok)}
+.msg.err{display:block;background:#2a1111;border:1px solid var(--danger);color:var(--danger)}
+.muted{color:var(--muted);font-size:.9rem;line-height:1.6}
+.hidden{display:none}
+img.thumb{width:44px;height:44px;object-fit:cover;border-radius:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>🔐 MKA Admin — Espace privé</h1>
+<div id="msg" class="msg"></div>
+
+<!-- ÉTAPE 1 : connexion -->
+<div id="loginBox" class="card">
+  <h2>Connexion propriétaire</h2>
+  <p class="muted">Cet espace est réservé à Mackenson Kelly ANTOINE. Les visiteurs du site public n'ont jamais accès à cette interface.</p>
+  <div class="row">
+    <div><label>Propriétaire GitHub (nom d'utilisateur)</label><input type="text" id="owner" placeholder="ex : mackelantoine999"></div>
+    <div><label>Nom du dépôt</label><input type="text" id="repo" placeholder="ex : mackelantoine999.github.io"></div>
+  </div>
+  <div class="row">
+    <div><label>Branche</label><input type="text" id="branch" value="main"></div>
+    <div><label>Token GitHub (fine-grained, Contents: Read and write)</label><input type="password" id="token" placeholder="github_pat_..."></div>
+  </div>
+  <button id="loginBtn">Se connecter</button>
+  <p class="muted">Crée ton token sur GitHub : <b>Settings → Developer settings → Fine-grained tokens</b> — accès limité à <b>ce dépôt uniquement</b>, permission <b>Contents : Read and writing</b>. Le token reste stocké uniquement dans ton navigateur.</p>
+</div>
+
+<!-- ÉTAPE 2 : administration -->
+<div id="adminBox" class="hidden">
+  <div class="card">
+    <h2>Connecté : <span id="whoami"></span></h2>
+    <div class="muted" id="repoinfo"></div>
+    <button class="ghost" id="logoutBtn">Déconnexion</button>
+    <button class="danger" id="clearBtn">Effacer le token de ce navigateur</button>
+  </div>
+
+  <div class="card">
+    <h2>Textes du site</h2>
+    <label>Phrase d'accueil (hero)</label><textarea id="f_intro"></textarea>
+    <label>Biographie « À propos »</label><textarea id="f_bio"></textarea>
+    <label>Message de contact</label><textarea id="f_contact"></textarea>
+  </div>
+
+  <div class="card">
+    <h2>Compétences (une par ligne)</h2>
+    <textarea id="f_skills"></textarea>
+  </div>
+
+  <div class="card">
+    <h2>Projets</h2>
+    <div id="projectsList"></div>
+    <div class="row">
+      <div><label>Titre</label><input type="text" id="p_title"></div>
+      <div><label>Description</label><input type="text" id="p_desc"></div>
+    </div>
+    <button class="ghost" id="addProject">+ Ajouter un projet</button>
+  </div>
+
+  <div class="card">
+    <h2>Photos (galerie — illimitées)</h2>
+    <div id="photosList"></div>
+    <label>Choisir des images</label><input type="file" id="photoFiles" accept="image/*" multiple>
+    <label>Légende commune (optionnel)</label><input type="text" id="photoCaption" placeholder="ex : MKA 2026">
+    <button class="ghost" id="uploadPhotos">Publier les photos sélectionnées</button>
+    <p class="muted">Conseil : garde chaque image sous ~1 Mo pour un site rapide.</p>
+  </div>
+
+  <div class="card">
+    <h2>Vidéos</h2>
+    <div id="videosList"></div>
+    <div class="row">
+      <div><label>Titre</label><input type="text" id="v_title"></div>
+      <div><label>URL (YouTube, etc.)</label><input type="url" id="v_url" placeholder="https://..."></div>
+    </div>
+    <button class="ghost" id="addVideoLink">+ Ajouter la vidéo</button>
+    <div><label>Ou charger un fichier vidéo</label><input type="file" id="videoFile" accept="video/*"></div>
+    <button class="ghost" id="uploadVideo">Publier ce fichier vidéo</button>
+  </div>
+
+  <div class="card">
+    <h2>Documents publics</h2>
+    <div id="docsList"></div>
+    <div class="row">
+      <div><label>Titre</label><input type="text" id="d_title"></div>
+      <div><label>Fichier (PDF, etc.)</label><input type="file" id="docFile"></div>
+    </div>
+    <button class="ghost" id="uploadDoc">Publier le document</button>
+    <p class="muted">⚠️ Ne publie jamais de documents privés ou sensibles : tout ce qui est publié ici est public.</p>
+  </div>
+
+  <div class="card">
+    <h2>Liens officiels</h2>
+    <div id="linksList"></div>
+    <div class="row">
+      <div><label>Nom affiché</label><input type="text" id="l_label" placeholder="ex : LinkedIn"></div>
+      <div><label>URL</label><input type="url" id="l_url" placeholder="https://..."></div>
+    </div>
+    <button class="ghost" id="addLink">+ Ajouter le lien</button>
+  </div>
+
+  <div class="card">
+    <h2>Enregistrer les modifications</h2>
+    <p class="muted">Les ajouts ci-dessus sont appliqués immédiatement à GitHub. Ce bouton enregistre les textes et les listes (compétences, projets, liens, suppressions).</p>
+    <button id="saveBtn">💾 Publier les modifications sur le site</button>
+  </div>
+</div>
+</div>
+
+<script>
+const API='https://api.github.com';
+let state={owner:'',repo:'',branch:'main',token:'',content:null};
+
+const $=id=>document.getElementById(id);
+const show=(t,ok)=>{const m=$('msg');m.textContent=t;m.className='msg '+(ok?'ok':'err');setTimeout(()=>m.className='msg',6000);};
+const lsKey='mka_admin_cfg';
+
+function base64Encode(bytes){let bin='';const chunk=0x8000;for(let i=0;i<bytes.length;i+=chunk)bin+=String.fromCharCode.apply(null,bytes.subarray(i,i+chunk));return btoa(bin);}
+function fileName(safe){return safe.toLowerCase().replace(/[^a-z0-9._-]/g,'-').replace(/-+/g,'-');}
+
+async function gh(path,opts={}){
+  const r=await fetch(API+path,{...opts,headers:{
+    'Authorization':'Bearer '+state.token,
+    'Accept':'application/vnd.github+json',
+    'X-GitHub-Api-Version':'2022-11-28',
+    ...(opts.headers||{})
+  }});
+  if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error((e.message||'Erreur GitHub')+' (HTTP '+r.status+')');}
+  return r.status===204?null:r.json();
+}
+
+async function getFile(path){return gh('/repos/'+state.owner+'/'+state.repo+'/contents/'+path+'?ref='+state.branch);}
+
+async function putFile(path,b64content,message){
+  let sha=null;
+  try{sha=(await getFile(path)).sha;}catch(e){}
+  return gh('/repos/'+state.owner+'/'+state.repo+'/contents/'+path,{
+    method:'PUT',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({message,branch:state.branch,content:b64content,sha})
+  });
+}
+
+// ---- Connexion ----
+$('loginBtn').onclick=async()=>{
+  state.owner=$('owner').value.trim();state.repo=$('repo').value.trim();
+  state.branch=$('branch').value.trim()||'main';state.token=$('token').value.trim();
+  if(!state.owner||!state.repo||!state.token)return show('Remplis tous les champs.',false);
+  try{
+    const me=await gh('/user');
+    await loadContent();
+    localStorage.setItem(lsKey,JSON.stringify({owner:state.owner,repo:state.repo,branch:state.branch,token:state.token}));
+    $('whoami').textContent=me.login;
+    $('repoinfo').textContent='Dépôt : '+state.owner+'/'+state.repo+' — branche '+state.branch;
+    $('loginBox').classList.add('hidden');$('adminBox').classList.remove('hidden');
+    render();show('Connecté. Tu peux administrer ton site.',true);
+  }catch(e){show('Connexion impossible : '+e.message,false);}
+};
+
+$('logoutBtn').onclick=()=>{localStorage.removeItem(lsKey);location.reload();};
+$('clearBtn').onclick=()=>{localStorage.removeItem(lsKey);show('Token effacé de ce navigateur.',true);setTimeout(()=>location.reload(),1000);};
+
+// ---- Chargement du contenu ----
+async function loadContent(){
+  try{
+    const f=await getFile('content.json');
+    state.content=JSON.parse(atob(f.content.replace(/\n/g,'')));
+  }catch(e){
+    state.content={intro:'',bio:'',skills:[],projects:[],photos:[],videos:[],documents:[],contact:'',links:[]};
+    show('content.json introuvable, un nouveau sera créé à la première sauvegarde.',true);
+  }
+}
+
+// ---- Rendu des listes ----
+function esc(s){const d=document.createElement('div');d.textContent=s==null?'':s;return d.innerHTML;}
+
+function render(){
+  const c=state.content;
+  $('f_intro').value=c.intro||'';$('f_bio').value=c.bio||'';$('f_contact').value=c.contact||'';
+  $('f_skills').value=(c.skills||[]).join('\n');
+  $('projectsList').innerHTML=(c.projects||[]).map((p,i)=>'<div class="item"><div class="meta"><b>'+esc(p.title)+'</b><div class="muted">'+esc(p.desc)+'</div></div><button class="danger" onclick="delItem(\'projects\','+i+')">Supprimer</button></div>').join('');
+  $('photosList').innerHTML=(c.photos||[]).map((p,i)=>'<div class="item"><div class="meta"><b>'+esc(p.caption||p.file.split('/').pop())+'</b></div><button class="danger" onclick="delItem(\'photos\','+i+')">Retirer</button></div>').join('');
+  $('videosList').innerHTML=(c.videos||[]).map((v,i)=>'<div class="item"><div class="meta"><b>'+esc(v.title)+'</b><div class="muted">'+esc(v.file||v.url||'')+'</div></div><button class="danger" onclick="delItem(\'videos\','+i+')">Retirer</button></div>').join('');
+  $('docsList').innerHTML=(c.documents||[]).map((d,i)=>'<div class="item"><div class="meta"><b>'+esc(d.title)+'</b><div class="muted">'+esc(d.file)+'</div></div><button class="danger" onclick="delItem(\'documents\','+i+')">Retirer</button></div>').join('');
+  $('linksList').innerHTML=(c.links||[]).map((l,i)=>'<div class="item"><div class="meta"><b>'+esc(l.label)+'</b><div class="muted">'+esc(l.url)+'</div></div><button class="danger" onclick="delItem(\'links\','+i+')">Supprimer</button></div>').join('');
+}
+
+window.delItem=async function(kind,i){
+  if(!confirm('Retirer cet élément du site ?'))return;
+  state.content[kind].splice(i,1);
+  await save('Mise à jour des contenus');render();
+};
+
+// ---- Ajouts ----
+$('addProject').onclick=async()=>{
+  const t=$('p_title').value.trim(),d=$('p_desc').value.trim();
+  if(!t)return show('Donne un titre au projet.',false);
+  state.content.projects.push({title:t,desc:d});
+  $('p_title').value='';$('p_desc').value='';
+  await save('Ajout projet : '+t);render();
+};
+$('addVideoLink').onclick=async()=>{
+  const t=$('v_title').value.trim(),u=$('v_url').value.trim();
+  if(!t||!u)return show('Titre et URL requis.',false);
+  state.content.videos.push({title:t,url:u});
+  $('v_title').value='';$('v_url').value='';
+  await save('Ajout vidéo : '+t);render();
+};
+$('addLink').onclick=async()=>{
+  const l=$('l_label').value.trim(),u=$('l_url').value.trim();
+  if(!l||!u)return show('Nom et URL requis.',false);
+  state.content.links.push({label:l,url:u});
+  $('l_label').value='';$('l_url').value='';
+  await save('Ajout lien : '+l);render();
+};
+
+// ---- Uploads ----
+$('uploadPhotos').onclick=async()=>{
+  const files=[...$('photoFiles').files];if(!files.length)return show('Choisis au moins une image.',false);
+  const cap=$('photoCaption').value.trim();
+  for(const f of files){
+    show('Envoi de '+f.name+'…',true);
+    const buf=new Uint8Array(await f.arrayBuffer());
+    const path='assets/photos/'+fileName(f.name);
+    await putFile(path,base64Encode(buf),'Ajout photo : '+f.name);
+    state.content.photos.push({file:path,caption:cap||f.name.replace(/\.[^.]+$/,'')});
+  }
+  $('photoFiles').value='';
+  await save('Galerie mise à jour');render();
+};
+$('uploadVideo').onclick=async()=>{
+  const f=$('videoFile').files[0];if(!f)return show('Choisis un fichier vidéo.',false);
+  const title=prompt('Titre de la vidéo :',f.name)||f.name;
+  const buf=new Uint8Array(await f.arrayBuffer());
+  const path='assets/videos/'+fileName(f.name);
+  show('Envoi de la vidéo…',true);
+  await putFile(path,base64Encode(buf),'Ajout vidéo : '+f.name);
+  state.content.videos.push({title,file:path});
+  $('videoFile').value='';
+  await save('Vidéo publiée : '+title);render();
+};
+$('uploadDoc').onclick=async()=>{
+  const f=$('docFile').files[0];if(!f)return show('Choisis un document.',false);
+  const title=$('d_title').value.trim()||f.name;
+  const buf=new Uint8Array(await f.arrayBuffer());
+  const path='assets/documents/'+fileName(f.name);
+  show('Envoi du document…',true);
+  await putFile(path,base64Encode(buf),'Ajout document : '+f.name);
+  state.content.documents.push({title,file:path});
+  $('docFile').value='';$('d_title').value='';
+  await save('Document publié : '+title);render();
+};
+
+// ---- Sauvegarde ----
+$('saveBtn').onclick=()=>save('Mise à jour des textes et listes');
+
+async function save(msg){
+  try{
+    const c=state.content;
+    c.intro=$('f_intro').value;c.bio=$('f_bio').value;c.contact=$('f_contact').value;
+    c.skills=$('f_skills').value.split('\n').map(s=>s.trim()).filter(Boolean);
+    const b64=btoa(unescape(encodeURIComponent(JSON.stringify(c,null,2))));
+    await putFile('content.json',b64,msg||'Mise à jour du site MKA');
+    show('✅ Publié ! Ton site public est mis à jour (1–2 min sur GitHub Pages).',true);
+  }catch(e){show('Erreur : '+e.message,false);}
+}
+
+// ---- Auto-remplissage si configuration sauvegardée ----
+const saved=JSON.parse(localStorage.getItem(lsKey)||'null');
+if(saved){$('owner').value=saved.owner;$('repo').value=saved.repo;$('branch').value=saved.branch;$('token').value=saved.token;}
+</script>
+</body>
+</html>

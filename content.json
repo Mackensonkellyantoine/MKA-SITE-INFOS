@@ -1,0 +1,17 @@
+{
+  "intro": "Bienvenue sur mon espace numérique public officiel. Cette page présente mon identité, mes compétences, mes projets, mes photos, mes vidéos et mes documents publics.",
+  "bio": "Je suis Mackenson Kelly ANTOINE, connu publiquement sous le nom MKA. Développeur passionné par la technologie et la cybersécurité, cette page est la base officielle de mon identité numérique.",
+  "skills": ["Programmation", "Développement web", "Cybersécurité", "Technologie", "Applications"],
+  "projects": [
+    { "title": "Projets numériques", "desc": "Applications, sites et systèmes développés par MKA." },
+    { "title": "Cybersécurité", "desc": "Travaux et apprentissages en sécurité informatique éthique." },
+    { "title": "Identité numérique MKA", "desc": "Ce site officiel : mon hub public central sur Internet." }
+  ],
+  "photos": [
+    { "file": "assets/photos/profile.jpg", "caption": "Mackenson Kelly ANTOINE" }
+  ],
+  "videos": [],
+  "documents": [],
+  "contact": "Voici mes liens officiels. Attention : seuls les liens listés ici sont authentiques.",
+  "links": []
+}
