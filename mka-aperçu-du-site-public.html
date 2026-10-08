@@ -7,19 +7,7 @@
 <meta name="author" content="Mackenson Kelly ANTOINE">
 <meta property="og:title" content="MKA — Mackenson Kelly ANTOINE">
 <meta property="og:description" content="Identité numérique publique officielle de Mackenson Kelly ANTOINE (MKA).">
-<meta property="og:type" content="profile">
 <title>MKA — Mackenson Kelly ANTOINE</title>
-<script type="application/ld+json" id="ldjson">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Mackenson Kelly ANTOINE",
-  "alternateName": "MKA",
-  "url": "./",
-  "image": "assets/photos/profile.jpg",
-  "jobTitle": "Développeur • Cybersécurité • Technologie"
-}
-</script>
 <style>
 :root{--bg:#07111f;--card:#0d1b2d;--text:#f5f8fc;--muted:#aab8c8;--accent:#4da3ff;--line:#223852}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
@@ -30,7 +18,7 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:10px 0
 .nav{display:flex;gap:18px;color:var(--muted);font-size:.95rem}
 .hero{text-align:center;padding:60px 0 70px}
 .logo{width:74px;height:74px;border-radius:18px;object-fit:cover;display:block;margin:0 auto 18px;border:1px solid var(--line)}
-.mainphoto{width:175px;height:175px;object-fit:cover;border-radius:50%;border:4px solid #4da3ff55;box-shadow:0 0 55px #4da3ff22}
+.mainphoto{width:175px;height:175px;object-fit:cover;border-radius:50%;border:4px solid #4da3ff55;box-shadow:0 0 55px #4da3ff22;background:#0d1b2d;display:flex;align-items:center;justify-content:center;margin:0 auto;color:#4da3ff;font-weight:900;font-size:2.4rem}
 .aka{color:var(--accent);font-weight:800;font-size:1.2rem;margin-top:20px}
 h1{font-size:clamp(2.3rem,7vw,4.8rem);margin:4px 0;letter-spacing:-.03em}
 .lead{max-width:760px;margin:18px auto;color:var(--muted);line-height:1.8;font-size:1.06rem}
@@ -44,14 +32,13 @@ h2{font-size:1.9rem;margin:0 0 18px}
 .card p,.muted{color:var(--muted);line-height:1.7}
 .tag{display:inline-block;background:#102842;color:#b7dcff;padding:7px 11px;border-radius:99px;margin:4px;font-size:.9rem}
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.gallery figure{margin:0;position:relative}
-.gallery img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:15px;border:1px solid var(--line);cursor:zoom-in;transition:.25s}
-.gallery img:hover{transform:scale(1.03);border-color:var(--accent)}
+.gallery figure{margin:0}
+.gallery img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:15px;border:1px solid var(--line);cursor:zoom-in}
 .gallery figcaption{color:var(--muted);font-size:.82rem;margin-top:6px;text-align:center}
 .links a{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);padding:10px 16px;border-radius:12px;margin:5px;font-weight:600}
 .links a:hover{border-color:var(--accent)}
-.docs li,.vids li{margin:8px 0;color:var(--muted)}
-.docs a,.vids a{color:var(--accent)}
+.docs li{margin:8px 0;color:var(--muted)}
+.docs a{color:var(--accent)}
 video{width:100%;border-radius:15px;border:1px solid var(--line);margin-bottom:10px}
 footer{text-align:center;color:var(--muted);padding:35px 0}
 #lightbox{position:fixed;inset:0;background:#000a;display:none;place-items:center;z-index:50;cursor:zoom-out}
@@ -71,91 +58,69 @@ footer{text-align:center;color:var(--muted);padding:35px 0}
 
 <section class="hero" style="border:0">
   <img id="logo" class="logo" src="assets/photos/logo.png" alt="Logo MKA" onerror="this.style.display='none'">
-  <img id="mainphoto" class="mainphoto" src="assets/photos/profile.jpg" alt="Photo de Mackenson Kelly ANTOINE" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22175%22 height=%22175%22%3E%3Crect fill=%22%230d1b2d%22 width=%22175%22 height=%22175%22/%3E%3Ctext x=%2287%22 y=%2295%22 fill=%22%234da3ff%22 font-size=%2240%22 text-anchor=%22middle%22 font-family=%22sans-serif%22%3EMKA%3C/text%3E%3C/svg%3E'">
+  <div id="mainphoto" class="mainphoto" role="img" aria-label="Photo de Mackenson Kelly ANTOINE">MKA</div>
   <div class="aka">MKA</div>
   <h1>Mackenson Kelly ANTOINE</h1>
-  <p class="lead" id="intro">Bienvenue sur mon espace numérique public officiel.</p>
+  <p class="lead" id="intro">Bienvenue sur mon espace numérique public officiel. Cette page présente mon identité, mes compétences, mes projets, mes photos, mes vidéos et mes documents publics.</p>
   <div class="buttons"><a class="btn primary" href="#about">Voir mon profil</a><a class="btn" href="#photos">Voir mes photos</a></div>
 </section>
 
-<section id="about"><h2>À propos</h2><div class="card"><p id="bio"></p></div></section>
+<section id="about"><h2>À propos</h2><div class="card"><p id="bio">Je suis <strong>Mackenson Kelly ANTOINE</strong>, connu publiquement sous le nom <strong>MKA</strong>. Développeur passionné par la technologie et la cybersécurité, cette page est la base officielle de mon identité numérique publique.</p></div></section>
 
-<section id="skills"><h2>Compétences & domaines</h2><div id="skills-box" class="card"></div></section>
+<section id="skills"><h2>Compétences & domaines</h2><div id="skills-box" class="card">
+  <span class="tag">Programmation</span><span class="tag">Développement web</span><span class="tag">Cybersécurité</span><span class="tag">Technologie</span><span class="tag">Applications</span>
+</div></section>
 
-<section id="projects"><h2>Projets</h2><div id="projects-box" class="grid"></div></section>
+<section id="projects"><h2>Projets</h2><div id="projects-box" class="grid">
+  <div class="card"><h3>Projets numériques</h3><p>Applications, sites et systèmes développés par MKA.</p></div>
+  <div class="card"><h3>Cybersécurité</h3><p>Travaux et apprentissages en sécurité informatique éthique.</p></div>
+  <div class="card"><h3>Identité numérique MKA</h3><p>Ce site officiel : mon hub public central sur Internet.</p></div>
+</div></section>
 
-<section id="photos"><h2>Galerie</h2><p class="muted">Clique sur une photo pour l'agrandir.</p><div id="gallery-box" class="gallery"></div></section>
+<section id="photos"><h2>Galerie</h2><p class="muted">Clique sur une photo pour l'agrandir.</p><div id="gallery-box" class="gallery"><p class="muted">Les photos seront publiées ici depuis mon espace d'administration.</p></div></section>
 
-<section id="videos"><h2>Vidéos</h2><div id="videos-box" class="grid"></div></section>
+<section id="videos"><h2>Vidéos</h2><div id="videos-box" class="grid"><p class="muted">Les vidéos seront publiées ici.</p></div></section>
 
-<section id="documents"><h2>Documents publics</h2><ul id="docs-box" class="docs"></ul></section>
+<section id="documents"><h2>Documents publics</h2><ul id="docs-box" class="docs"><li>Les documents publics seront publiés ici.</li></ul></section>
 
-<section id="contact"><h2>Présence officielle & contact</h2><div class="card"><p id="contact-text" class="muted"></p><div id="links-box" class="links"></div></div></section>
+<section id="contact"><h2>Présence officielle & contact</h2><div class="card"><p id="contact-text" class="muted">Les liens officiels de MKA seront ajoutés ici.</p><div id="links-box" class="links"></div></div></section>
 
-<footer>© <span id="year"></span> MKA — Mackenson Kelly ANTOINE. Tous droits réservés.</footer>
+<footer>© <span id="year">2026</span> MKA — Mackenson Kelly ANTOINE. Tous droits réservés.</footer>
 </div>
 
 <div id="lightbox" onclick="this.style.display='none'"><img id="lightbox-img" src="" alt=""></div>
 
 <script>
-const DEFAULT_CONTENT = {
-  intro: "Bienvenue sur mon espace numérique public officiel. Cette page présente mon identité, mes compétences, mes projets, mes photos, mes vidéos et mes documents publics.",
-  bio: "Je suis Mackenson Kelly ANTOINE, connu publiquement sous le nom MKA. Cette page constitue la base de mon identité numérique publique.",
-  skills: ["Programmation","Développement web","Cybersécurité","Technologie"],
-  projects: [
-    {title:"Projets numériques",desc:"Applications, sites et systèmes développés par MKA."},
-    {title:"Cybersécurité",desc:"Travaux et apprentissages en sécurité informatique éthique."},
-    {title:"À venir",desc:"Cette section sera enrichie depuis mon espace d'administration."}
-  ],
-  const SVG = t => 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect fill="#0d1b2d" width="400" height="400"/><text x="200" y="190" fill="#4da3ff" font-size="30" text-anchor="middle" font-family="sans-serif">' + t + '</text></svg>');
-  photos: [1,2,3,4,5,6,7,8].map(n => ({file: SVG('Photo ' + n), caption: 'Exemple — ta photo ici'})),
-  videos: [{title:'Présentation MKA (exemple)', url:'#'}],
-  documents: [{title:'Certificat MKA (exemple)', file:'#'}],
-  contact: "Les liens officiels de MKA sont listés ci-dessous.",
-  links: [{label:'GitHub',url:'#'},{label:'LinkedIn',url:'#'},{label:'YouTube',url:'#'},{label:'Facebook',url:'#'}]
-};
-
-async function loadContent(){
-  let c;
-  try{
-    const r = await fetch('content.json', {cache:'no-store'});
-    c = await r.json();
-  }catch(e){ c = DEFAULT_CONTENT; }
-  render(c);
-}
-
-function esc(s){ const d=document.createElement('div'); d.textContent=s??''; return d.innerHTML; }
+/* Contenu par défaut : le site est entièrement lisible sans content.json.
+   Si content.json existe, il enrichit automatiquement la page (données de l'admin). */
+function esc(s){var d=document.createElement('div');d.textContent=s==null?'':s;return d.innerHTML;}
 
 function render(c){
-  document.getElementById('intro').textContent = c.intro || '';
-  document.getElementById('bio').innerHTML = esc(c.bio).replace(/\n/g,'<br>');
-  document.getElementById('skills-box').innerHTML =
-    (c.skills||[]).map(s=>`<span class="tag">${esc(s)}</span>`).join('');
-  document.getElementById('projects-box').innerHTML = (c.projects||[]).map(p=>
-    `<div class="card"><h3>${esc(p.title)}</h3><p>${esc(p.desc)}</p></div>`).join('');
-  document.getElementById('gallery-box').innerHTML = (c.photos||[]).map(p=>
-    `<figure><img src="${esc(p.file)}" alt="${esc(p.caption||'Photo MKA')}" loading="lazy" onclick="showLB('${esc(p.file)}')"><figcaption>${esc(p.caption||'')}</figcaption></figure>`).join('')
-    || '<p class="muted">Aucune photo publiée pour le moment.</p>';
-  document.getElementById('videos-box').innerHTML = (c.videos||[]).map(v=>
-    v.file
-      ? `<div class="card"><video controls preload="metadata" src="${esc(v.file)}"></video><p>${esc(v.title)}</p></div>`
-      : `<div class="card"><h3>${esc(v.title)}</h3><p class="muted"><a href="${esc(v.url)}" target="_blank" rel="noopener">▶ Regarder la vidéo</a></p></div>`).join('')
-    || '<p class="muted">Aucune vidéo publiée pour le moment.</p>';
-  document.getElementById('docs-box').innerHTML = (c.documents||[]).map(d=>
-    `<li>📄 <a href="${esc(d.file)}" target="_blank" rel="noopener">${esc(d.title)}</a>${d.desc?` — ${esc(d.desc)}`:''}</li>`).join('')
-    || '<li>Aucun document publié pour le moment.</li>';
-  document.getElementById('contact-text').textContent = c.contact || '';
-  document.getElementById('links-box').innerHTML = (c.links||[]).map(l=>
-    `<a href="${esc(l.url)}" target="_blank" rel="noopener">🔗 ${esc(l.label)}</a>`).join('');
+  try{
+    if(c.profileImage){
+      var img=document.createElement('img');
+      img.className='mainphoto';img.src=c.profileImage;img.alt='Photo de Mackenson Kelly ANTOINE';
+      document.getElementById('mainphoto').replaceWith(img);img.id='mainphoto';
+    }
+    if(c.intro)document.getElementById('intro').textContent=c.intro;
+    if(c.bio)document.getElementById('bio').innerHTML=esc(c.bio).replace(/\n/g,'<br>');
+    if(c.skills&&c.skills.length)document.getElementById('skills-box').innerHTML=c.skills.map(function(s){return '<span class="tag">'+esc(s)+'</span>';}).join('');
+    if(c.projects&&c.projects.length)document.getElementById('projects-box').innerHTML=c.projects.map(function(p){return '<div class="card"><h3>'+esc(p.title)+'</h3><p>'+esc(p.desc)+'</p></div>';}).join('');
+    if(c.photos&&c.photos.length)document.getElementById('gallery-box').innerHTML=c.photos.map(function(p){return '<figure><img src="'+esc(p.file)+'" alt="'+esc(p.caption||'Photo MKA')+'" loading="lazy" onclick="showLB(this.src)"><figcaption>'+esc(p.caption||'')+'</figcaption></figure>';}).join('');
+    if(c.videos&&c.videos.length)document.getElementById('videos-box').innerHTML=c.videos.map(function(v){
+      if(v.file)return '<div class="card"><video controls preload="metadata" src="'+esc(v.file)+'"></video><p>'+esc(v.title)+'</p></div>';
+      return '<div class="card"><h3>'+esc(v.title)+'</h3><p class="muted"><a href="'+esc(v.url)+'" target="_blank" rel="noopener">▶ Regarder la vidéo</a></p></div>';}).join('');
+    if(c.documents&&c.documents.length)document.getElementById('docs-box').innerHTML=c.documents.map(function(d){return '<li>📄 <a href="'+esc(d.file)+'" target="_blank" rel="noopener">'+esc(d.title)+'</a>'+(d.desc?' — '+esc(d.desc):'')+'</li>';}).join('');
+    if(c.contact)document.getElementById('contact-text').textContent=c.contact;
+    if(c.links&&c.links.length)document.getElementById('links-box').innerHTML=c.links.map(function(l){return '<a href="'+esc(l.url)+'" target="_blank" rel="noopener">🔗 '+esc(l.label)+'</a>';}).join('');
+  }catch(e){/* le contenu par défaut reste affiché */}
 }
 
-function showLB(src){
-  document.getElementById('lightbox-img').src = src;
-  document.getElementById('lightbox').style.display = 'grid';
-}
+function showLB(src){document.getElementById('lightbox-img').src=src;document.getElementById('lightbox').style.display='grid';}
 
-document.getElementById('year').textContent = new Date().getFullYear();
-loadContent();
+document.getElementById('year').textContent=new Date().getFullYear();
+
+fetch('content.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(render).catch(function(){});
 </script>
 </body>
 </html>
